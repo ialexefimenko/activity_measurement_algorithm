@@ -280,36 +280,6 @@ def scale_matrix_by_max(A):
 
     return new 
 
-def insert_at_nth_column_of_matrix(column_vector, M, column_num):
-    """
-    Inserts a new column into an existing matrix
-        :param column_vector: The column vector to insert
-            IF a value is passed in, a column is created
-            with all elements equal to the value
-        :param M: The matrix to insert the new column into
-        :param column_num: The column index to insert at
-            NOTE: index is "zero" based
-        :return: The altered matrix
-    """
-    # Section 1: Obtain matrix dimensions
-    rows = len(M); cols = len(M[0])
-
-    # Section 2: If a value has been passed in for column vector ...
-    if not isinstance(column_vector,list):
-        column_value = column_vector
-        column_vector = [] # ... create a column vector ...
-        for i in range(rows): # ... full of that value
-            column_vector.append([column_value]) 
-
-    # Section 3: IF column vector received, check for correct rows
-    if rows != len(column_vector):
-        raise ArithmeticError('Column and Matrix rows do NOT match.')
-
-    # Section 4: Insert the column vector values one row at a time
-    for i in range(rows):
-        M[i].insert(column_num,column_vector[i][0])
-
-    return M
 
 def replace_nth_column_of_matrix(column_vector, M, column_num):
     """
@@ -448,11 +418,10 @@ def invert_matrix(A, tol=None):
                 AM[i][j] = AM[i][j] - crScaler * AM[fd][j]
                 IM[i][j] = IM[i][j] - crScaler * IM[fd][j]
 
-    # Section 4: Make sure that IM is an inverse of A within the specified tolerance
-    if check_matrix_equality(I,matrix_multiply(A,IM),tol):
-        return IM
-    else:
-        raise ArithmeticError("Matrix inverse out of tolerance.")
+    
+    
+    return IM
+    
 
 def solve_equations(A, B, tol=None):
     """
@@ -487,13 +456,12 @@ def solve_equations(A, B, tol=None):
                 AM[i][j] = AM[i][j] - crScaler * AM[fd][j]
             BM[i][0] = BM[i][0] - crScaler * BM[fd][0]
 
-    # Section 4: Make sure that BM is the solution for X
-    if check_matrix_equality(B,matrix_multiply(A,BM),tol):
-        return BM
-    else:
-        raise ArithmeticError("Solution for X out of tolerance.")
+   
+   
+    return BM
+   
 
-def least_squares(X, Y, tol=3):
+def least_squares(X, Y, tol=2):
     """
     Find least squares fit for coefficients of X given Y
         :param X: The input parameters
@@ -502,22 +470,22 @@ def least_squares(X, Y, tol=3):
                  including the constant for X^0
     """
     # Section 1: If X and/or Y are 1D arrays, make them 2D
-    if not isinstance(X[0],list):
-        X = [X]
-    if not isinstance(type(Y[0]),list):
-        Y = [Y]
-
-    # Section 2: Make sure we have more rows than columns
-    #            This is related to section 1
-    if len(X) < len(X[0]):
-        X = transpose(X)
-    if len(Y) < len(Y[0]):
-        Y = transpose(Y)
-
-    # Section 3: Add the column to X for the X^0, or
-    #            for the Y intercept
-    for i in range(len(X)):
-        X[i].append(1)
+#     if not isinstance(X[0],list):
+#         X = [X]
+#     if not isinstance(type(Y[0]),list):
+#         Y = [Y]
+# 
+#     # Section 2: Make sure we have more rows than columns
+#     #            This is related to section 1
+#     if len(X) < len(X[0]):
+#         X = transpose(X)
+#     if len(Y) < len(Y[0]):
+#         Y = transpose(Y)
+# 
+#     # Section 3: Add the column to X for the X^0, or
+#     #            for the Y intercept
+#     for i in range(len(X)):
+#         X[i].append(1)
 
     # Section 4: Perform Least Squares Steps
     AT = transpose(X)
@@ -526,4 +494,3 @@ def least_squares(X, Y, tol=3):
     coefs = solve_equations(ATA,ATB,tol=tol)
     
     return coefs
-    

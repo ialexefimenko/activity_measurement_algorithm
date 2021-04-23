@@ -60,7 +60,7 @@ def matrix_addition(A, B):
     rowsA = len(A); colsA = len(A[0])
     rowsB = len(B); colsB = len(B[0])
     if rowsA != rowsB or colsA != colsB:
-        raise ArithmeticError('Matrices are NOT the same size.')
+        raise ArithmeticError('Матрицы НЕ имеют одинакового размера.')
 
   
     C = zeros_matrix(rowsA, colsB)
@@ -95,7 +95,7 @@ def matrix_multiply(A, B):
     rowsB = len(B); colsB = len(B[0])
     if colsA != rowsB:
         raise ArithmeticError(
-            'Number of A columns must equal number of B rows.')
+            'Количество столбцов A должно равняться количеству строк B.')
 
  
     C = zeros_matrix(rowsA, colsB)
@@ -140,7 +140,7 @@ def dot_product(A, B):
     rowsA = len(A); colsA = len(A[0])
     rowsB = len(B); colsB = len(B[0])
     if rowsA != rowsB or colsA != colsB:
-        raise ArithmeticError('Matrices are NOT the same size.')
+        raise ArithmeticError('Матрицы НЕ имеют одинакового размера.')
 
    
     total = 0
@@ -154,7 +154,7 @@ def unitize_vector(vector):
    
     if len(vector) > 1 and len(vector[0]) > 1:
         raise ArithmeticError(
-            'Vector must be a row or column vector.')
+            'Вектор должен быть вектором строки или столбца.')
 
    
     rows = len(vector); cols = len(vector[0])
@@ -221,7 +221,7 @@ def replace_nth_column_of_matrix(column_vector, M, column_num):
 
 
     if rows != len(column_vector):
-        raise ArithmeticError('Column and Matrix rows do NOT match.')
+        raise ArithmeticError('Строки столбцов и матриц НЕ совпадают.')
 
 
     for i in range(rows):
@@ -231,7 +231,7 @@ def replace_nth_column_of_matrix(column_vector, M, column_num):
 
 def check_squareness(A):
     if len(A) != len(A[0]):
-        raise ArithmeticError("Matrix must be square to inverse.")
+        raise ArithmeticError("Матрица должна быть квадратной, чтобы быть обратной.")
 
 def determinant_recursive(A, total=0):
     indices = list(range(len(A)))
@@ -283,7 +283,7 @@ def check_non_singular(A):
     if det != 0:
         return det
     else:
-        raise ArithmeticError("Singular Matrix!")
+        raise ArithmeticError("Сингулярная матрица.")
 
 def invert_matrix(A, tol=None):
    

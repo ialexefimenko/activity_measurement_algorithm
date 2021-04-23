@@ -34,4 +34,4 @@ K_pseudomatrix=Vh_transpose*S_inverse*U_transpose
 Q=K_pseudomatrix*R
 
 if __name__=='__main__':
-	pprint(Q)
+	print(Q)
